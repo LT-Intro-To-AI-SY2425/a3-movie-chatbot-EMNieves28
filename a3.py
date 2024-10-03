@@ -54,7 +54,17 @@ def title_by_year(matches: List[str]) -> List[str]:
     Returns:
         a list of movie titles made in the passed in year
     """
-    pass
+    year = int(matches[0])
+    result = []
+    print(year)
+    for movie in movie_db:
+        print(get_year(movie))
+        print(get_title(movie))
+        if get_year(movie) == year:
+            result.append(get_title(movie))
+            print("FOUND")
+    return result
+
 
 
 def title_by_year_range(matches: List[str]) -> List[str]:
@@ -70,7 +80,18 @@ def title_by_year_range(matches: List[str]) -> List[str]:
         a list of movie titles made during those years, inclusive (meaning if you pass
         in ["1991", "1994"] you will get movies made in 1991, 1992, 1993 & 1994)
     """
-    pass
+    start_year = int(matches[0])
+    end_year = int(matches[1])
+    result = []
+
+    for movie in movie_db:
+        movie_year = get_year(movie)
+        movie_title = get_title(movie)
+
+        if start_year <= movie_year <= end_year:
+            result.append(movie_title)
+            print("FOUND")
+    return sorted(result)
 
 
 def title_before_year(matches: List[str]) -> List[str]:
