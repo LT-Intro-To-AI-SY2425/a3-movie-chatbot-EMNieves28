@@ -86,12 +86,12 @@ def title_by_year_range(matches: List[str]) -> List[str]:
 
     for movie in movie_db:
         movie_year = get_year(movie)
-        movie_title = get_title(movie)
 
         if start_year <= movie_year <= end_year:
+            movie_title = get_title(movie)
             result.append(movie_title)
             print("FOUND")
-    return sorted(result)
+    return result
 
 
 def title_before_year(matches: List[str]) -> List[str]:
@@ -105,7 +105,17 @@ def title_before_year(matches: List[str]) -> List[str]:
         a list of movie titles made before the passed in year, exclusive (meaning if you
         pass in 1992 you won't get any movies made that year, only before)
     """
-    pass
+    start_year = int(matches[0])
+    result = []
+
+    for movie in movie_db:
+        movie_year = get_year(movie)
+
+        if start_year > movie_year:
+            movie_title = get_title(movie)
+            result.append(movie_title)
+            print("FOUND")
+    return sorted(result)
 
 
 def title_after_year(matches: List[str]) -> List[str]:
@@ -119,7 +129,17 @@ def title_after_year(matches: List[str]) -> List[str]:
         a list of movie titles made after the passed in year, exclusive (meaning if you
         pass in 1992 you won't get any movies made that year, only after)
     """
-    pass
+    start_year = int(matches[0])
+    result = []
+
+    for movie in movie_db:
+        movie_year = get_year(movie)
+
+        if start_year < movie_year:
+            movie_title = get_title(movie)
+            result.append(movie_title)
+            print("FOUND")
+    return sorted(result)
 
 
 def director_by_title(matches: List[str]) -> List[str]:
@@ -131,7 +151,16 @@ def director_by_title(matches: List[str]) -> List[str]:
     Returns:
         a list of 1 string, the director of the movie
     """
-    pass
+    title_to_find = matches[0]
+    result = []
+
+    for movie in movie_db:
+        movie_title = get_title(movie)
+        if movie_title == title_to_find:
+            director = get_director(movie)
+            result.append(director)
+            print("FOUND")
+    return sorted(result)
 
 
 def title_by_director(matches: List[str]) -> List[str]:
@@ -143,7 +172,16 @@ def title_by_director(matches: List[str]) -> List[str]:
     Returns:
         a list of movies titles directed by the passed in director
     """
-    pass
+    director_to_find = matches[0]
+    result = []
+
+    for movie in movie_db:
+        movie_title = get_title(movie)
+        if get_director(movie) == director_to_find:
+            result.append(movie_title)
+            print("FOUND")
+    
+    return sorted(result)
 
 
 def actors_by_title(matches: List[str]) -> List[str]:
@@ -155,7 +193,16 @@ def actors_by_title(matches: List[str]) -> List[str]:
     Returns:
         a list of actors who acted in the passed in title
     """
-    pass
+    title_to_find = matches[0].lower()
+    result = set()
+
+    for movie in movie_db:
+        movie_title = get_title(movie).lower()
+        if movie_title == title_to_find:
+            actors = get_actors(movie)
+            result.update(actors)
+            print("FOUND")
+    return sorted(result)
 
 
 def year_by_title(matches: List[str]) -> List[int]:
@@ -167,7 +214,16 @@ def year_by_title(matches: List[str]) -> List[int]:
     Returns:
         a list of one item (an int), the year that the movie was made
     """
-    pass
+    title_to_find = matches[0]
+    result = []
+
+    for movie in movie_db:
+        movie_title = get_title(movie)
+        if movie_title == title_to_find:
+            year = get_year(movie)
+            result.append(year)
+            print("FOUND")
+    return result
 
 
 def title_by_actor(matches: List[str]) -> List[str]:
@@ -179,7 +235,18 @@ def title_by_actor(matches: List[str]) -> List[str]:
     Returns:
         a list of movie titles that the actor acted in
     """
-    pass
+    actor_to_find = matches[0].lower()
+    result = []
+
+    for movie in movie_db:
+        movie_title = get_title(movie)
+        actors = get_actors(movie)
+
+        if actor_to_find in [actor.lower() for actor in actors]:
+            result.append(movie_title)
+            print("FOUND")
+    
+    return result
 
 
 # dummy argument is ignored and doesn't matter
