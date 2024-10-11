@@ -286,15 +286,20 @@ def search_pa_list(src: List[str]) -> List[str]:
         ["No answers"] if it finds a match but no answers
     """
     for pattern, action in pa_list:
-        # print(pattern, src, action)
+        print(pattern, src, action)
         mat = match(pattern, src)
-        # print(mat)
-        if mat != None:
-            result = action(mat)
-            # print(result)
-            return result
+        print(mat)
+        if mat is not None:
+            try:
+                result = action(mat)
+                print(result)
+                return result if result else["No answers"]
+            except Exception as e:
+                print(f"Error during action execution: {e}")
+                return ["No answers"]
+        
 
-    return ["I dont understand"]
+    return ["I don't understand"]
 
 
 def query_loop() -> None:
